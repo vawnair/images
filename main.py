@@ -88,14 +88,14 @@ def files(f):
     if f == "favicon.ico":
         return send_file("favicon.ico")
     elif f not in uplds:
-        return '<style>body{background-color: rgb(30, 30, 30);}.text{text-align: center; font-family: monospace; position: relative; top: 15%; color: rgb(255, 255, 255); text-shadow: 0px 0px 4px #ffffff;}</style><div class="text"> <h1>>.&#60;</h1> <h3>404</h3></div>', 404
+        return send_file("404.jpg"), 404
     else:
         return render_template(uplds.get(f)[0] + ".html")
 
 @app.route("/i/<f>")
 def send_f(f):
     if os.path.exists(f"uploads/{f}") == False:
-        return '<style>body{background-color: rgb(30, 30, 30);}.text{text-align: center; font-family: monospace; position: relative; top: 15%; color: rgb(255, 255, 255); text-shadow: 0px 0px 4px #ffffff;}</style><div class="text"> <h1>>.&#60;</h1> <h3>404</h3></div>', 404
+        return send_file("404.jpg"), 404
     else:
         return send_file(f"uploads/{f}")
 
