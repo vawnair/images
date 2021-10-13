@@ -1,0 +1,21 @@
+body {
+    background-color: rgb(30,30,30);
+}
+
+#text {
+    font-size: 12px;
+    color: #fff;
+    font-family: monospace;
+    position:relative;
+    top: 35%;
+    text-align: center;
+}
+
+#content {
+    display: none;
+    color: white;
+}
+
+.wb-body {
+    background-color: rgb(30,30,30);
+}

@@ -1,0 +1,17 @@
+{
+  "Version": "13.5.0",
+  "Name": "uploader",
+  "DestinationType": "ImageUploader",
+  "RequestMethod": "POST",
+  "RequestURL": "https://vuln.cf/api/upload",
+  "Headers": {
+    "title": "title",
+    "description": "description",
+    "fakeurl": "https://tsa.gov",
+    "urltype": "invis"
+  },
+  "Body": "MultipartFormData",
+  "FileFormName": "file",
+  "URL": "$json:url$",
+  "ErrorMessage": "$json:error$"
+}
