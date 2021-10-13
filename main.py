@@ -20,48 +20,48 @@ dictlol = {
 
 @app.errorhandler(400)
 def error_400(error):
-    return '<style>body{background-color: rgb(30, 30, 30);}.text{text-align: center; font-family: monospace; position: relative; top: 15%; color: rgb(255, 255, 255); text-shadow: 0px 0px 4px #ffffff;}</style><div class="text"> <h1>>.&#60;</h1> <h3>400</h3></div>', 400
+    return send_file("400.jpg"), 400
 
 @app.errorhandler(401)
 def error_401(error):
-    return '<style>body{background-color: rgb(30, 30, 30);}.text{text-align: center; font-family: monospace; position: relative; top: 15%; color: rgb(255, 255, 255); text-shadow: 0px 0px 4px #ffffff;}</style><div class="text"> <h1>>.&#60;</h1> <h3>401</h3></div>', 401
+    return send_file("401.jpg"), 401
 
 @app.errorhandler(403)
 def error_403(error):
-    return '<style>body{background-color: rgb(30, 30, 30);}.text{text-align: center; font-family: monospace; position: relative; top: 15%; color: rgb(255, 255, 255); text-shadow: 0px 0px 4px #ffffff;}</style><div class="text"> <h1>>.&#60;</h1> <h3>403</h3></div>', 403
+    return send_file("403.jpg"), 403
 
 @app.errorhandler(404)
 def error_404(error):
-    return '<style>body{background-color: rgb(30, 30, 30);}.text{text-align: center; font-family: monospace; position: relative; top: 15%; color: rgb(255, 255, 255); text-shadow: 0px 0px 4px #ffffff;}</style><div class="text"> <h1>>.&#60;</h1> <h3>404</h3></div>', 404
+    return send_file("404.jpg"), 404
 
 @app.errorhandler(405)
 def error_405(error):
-    return '<style>body{background-color: rgb(30, 30, 30);}.text{text-align: center; font-family: monospace; position: relative; top: 15%; color: rgb(255, 255, 255); text-shadow: 0px 0px 4px #ffffff;}</style><div class="text"> <h1>>.&#60;</h1> <h3>405</h3></div>', 405
+    return send_file("405.jpg"), 405
 
 @app.errorhandler(429)
 def error_429(error):
-    return '<style>body{background-color: rgb(30, 30, 30);}.text{text-align: center; font-family: monospace; position: relative; top: 15%; color: rgb(255, 255, 255); text-shadow: 0px 0px 4px #ffffff;}</style><div class="text"> <h1>>.&#60;</h1> <h3>429</h3></div>', 429
+    return send_file("429.jpg"), 429
 
 @app.errorhandler(500)
 def error_500(error):
-    return '<style>body{background-color: rgb(30, 30, 30);}.text{text-align: center; font-family: monospace; position: relative; top: 15%; color: rgb(255, 255, 255); text-shadow: 0px 0px 4px #ffffff;}</style><div class="text"> <h1>>.&#60;</h1> <h3>500</h3></div>', 500
+    return send_file("500.jpg"), 500
 
 @app.errorhandler(502)
 def error_502(error):
-    return '<style>body{background-color: rgb(30, 30, 30);}.text{text-align: center; font-family: monospace; position: relative; top: 15%; color: rgb(255, 255, 255); text-shadow: 0px 0px 4px #ffffff;}</style><div class="text"> <h1>>.&#60;</h1> <h3>502</h3></div>', 502
+    return send_file("502.jpg"), 502
 
 @app.errorhandler(503)
 def error_503(error):
-    return '<style>body{background-color: rgb(30, 30, 30);}.text{text-align: center; font-family: monospace; position: relative; top: 15%; color: rgb(255, 255, 255); text-shadow: 0px 0px 4px #ffffff;}</style><div class="text"> <h1>>.&#60;</h1> <h3>503</h3></div>', 503
+    return send_file("503.jpg"), 503
 
 @app.errorhandler(504)
 def error_504(error):
-    return '<style>body{background-color: rgb(30, 30, 30);}.text{text-align: center; font-family: monospace; position: relative; top: 15%; color: rgb(255, 255, 255); text-shadow: 0px 0px 4px #ffffff;}</style><div class="text"> <h1>>.&#60;</h1> <h3>504</h3></div>', 504
+    return send_file("504.jpg"), 504
 
 
 @app.route("/")
 def index():
-    return redirect("https://q3h.github.io/images/")
+    return redirect("https://z9q.github.io/images/")
 
 @app.route("/cfg")
 def cfg():
@@ -101,7 +101,7 @@ def send_f(f):
 
 @app.route("/domains")
 def domains():
-    return redirect("https://raw.githubusercontent.com/q3h/images/main/domains")
+    return redirect("https://raw.githubusercontent.com/z9q/images/main/domains")
 
 @app.route("/api/upload", methods=["POST"])
 def upload():
@@ -214,16 +214,29 @@ def upload():
 def rmupload(f):
     uplds = json.load(open("uploads.json", 'r'))
     if request.args.get("code") == None:
-        return jsonify({"error": "Enter a key ?code=KEY"}), 400
+        if request.method == "GET":
+            return send_file("400.jpg"), 400
+        else:
+            return jsonify({"error": "Enter a key ?code=KEY"}), 400
     elif f not in uplds:
-        return jsonify({"error": "File not found"}), 404
+        if request.method == "GET":
+            return send_file("404.jpg"), 404
+        else:
+            return jsonify({"error": "File not found"}), 404
     else:
         code = request.args.get("code")
         listt = uplds.get(f)
         if code == listt[2]:
-            os.remove(f"templates/{listt[0]}.html");os.remove(f"uploads/{listt[1]}");del uplds[f];j = open("uploads.json", 'w');j.write(json.dumps(uplds, indent=4));j.close();return jsonify({"msg": "File deleted!"})
+            os.remove(f"templates/{listt[0]}.html");os.remove(f"uploads/{listt[1]}");del uplds[f];j = open("uploads.json", 'w');j.write(json.dumps(uplds, indent=4));j.close()
+            if request.method == "GET":
+                return send_file("200.jpg")
+            else:
+                return jsonify({"msg": "File deleted!"})
         else:
-            return jsonify({"msg": "Invalid key"}), 401
+            if request.method == "GET":
+                return send_file("401.jpg"), 401
+            else:
+                return jsonify({"msg": "Invalid key"}), 401
 if __name__ == "__main__":
     ip = os.environ.get('IP', '0.0.0.0')
     port = int(os.environ.get('PORT', 1337))
@@ -260,6 +273,6 @@ if __name__ == "__main__":
                     #################%/////////////////////                     
 
                                 Worst image host.
-                                https://github.com/q3h/images  
+                                https://github.com/z9q/images  
     """)
     app.run(host=ip, port=port, threaded=True)
