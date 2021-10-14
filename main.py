@@ -113,9 +113,8 @@ def upload():
     if request.args.get("type") == "file" or request.args.get("type") == None:
         uuidd = str(uuid.uuid4())
         file = request.files["file"]
-        filename = file.filename
-        filename = filename.lower()
-        fileext = os.path.splitext(filename)[-1].lower()
+        filename = file.filename.lower()
+        fileext = os.path.splitext(filename)[-1]
         if fileext in exts:
             file.save(os.path.join(app.config["UPLOAD_FOLDER"], f"{ok}{fileext}"))
             vars = {"{filename}": file.filename, "{size}": str(os.path.getsize(f"uploads/{ok}{fileext}")) + " Bytes", "{fileext}": fileext, "{bobux}": str(random.randint(1, 1000)) + " bobux"}
@@ -167,9 +166,8 @@ def upload():
     elif request.args.get("type") == "paste":
         uuidd = str(uuid.uuid4())
         file = request.files["file"]
-        filename = file.filename
-        filename = filename.lower()
-        fileext = os.path.splitext(filename)[-1].lower()
+        filename = file.filename.lower()
+        fileext = os.path.splitext(filename)[-1]
         if fileext == ".txt":
             file.save(os.path.join(app.config["UPLOAD_FOLDER"], f"{ok}{fileext}"))
             vars = {"{filename}": file.filename, "{size}": str(os.path.getsize(f"uploads/{ok}{fileext}")) + " Bytes", "{fileext}": fileext, "{bobux}": str(random.randint(1, 1000)) + " bobux"}
@@ -275,4 +273,4 @@ if __name__ == "__main__":
                                 Worst image host.
                                 https://github.com/z9q/images  
     """)
-    app.run(host=ip, port=port, threaded=True)
+    app.run(host=ip, port=port)
