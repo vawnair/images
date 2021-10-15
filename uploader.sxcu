@@ -1,17 +1,16 @@
 {
   "Version": "13.5.0",
-  "Name": "uploader",
+  "Name": "i have a problem",
   "DestinationType": "ImageUploader",
   "RequestMethod": "POST",
-  "RequestURL": "https://vuln.cf/api/upload",
+  "RequestURL": "https://imgs.cf/api/upload",
   "Headers": {
-    "title": "title",
-    "description": "description",
-    "fakeurl": "https://tsa.gov",
-    "urltype": "invis"
+    "title": "4s"
   },
   "Body": "MultipartFormData",
   "FileFormName": "file",
   "URL": "$json:url$",
+  "ThumbnailURL": "$json:file$",
+  "DeletionURL": "$json:delete$",
   "ErrorMessage": "$json:error$"
 }
