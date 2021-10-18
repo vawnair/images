@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, send_file, redirect
+from flask import Flask, request, jsonify, render_template, send_file, redirect, escape
 import os, random, string, json, uuid
 uploads = json.load(open("uploads.json", 'r'))
 app = Flask(__name__)
@@ -195,7 +195,7 @@ def upload():
                 url = "https://" + request.headers["host"] + "/" + paste
             else:
                 url = "<" + request.headers.get("fakeurl") + ">" + "||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||" + "https://" + request.headers["host"] + "/" + paste
-            textL = open(f"uploads/{ok}{fileext}", 'r');textLL = textL.read();textL.close()
+            textL = open(f"uploads/{ok}{fileext}", 'r');textLL = escape(textL.read());textL.close()
             html = open(f"templates/{ok}.html", "w")
             html.write(f'<meta property="og:title" content="{title}">\n<meta property="twitter:title" content="{title}">\n<meta property="og:description" content="{description}">\n<meta property="twitter:description" content="{description}">' + f'<meta property="og:url" content="https://{request.headers["host"]}/{paste}">\n' + f'<meta name="twitter:card" content="summary_large_image">\n' + f'<meta property="og:image" content="https://imgs.cf/gds.png">\n' + f'<meta name="theme-color" content="#{color}">\n' + f'<pre style="word-wrap: break-word; white-space: pre-wrap;">\n{textLL}\n</pre>')
             uploads[paste] = [ok, ok+fileext, uuidd]
